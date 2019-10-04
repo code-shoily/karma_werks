@@ -44,7 +44,7 @@ defmodule KarmaWerks.MixProject do
       {:ex_phone_number, "~> 0.1"},
       {:timex, "~> 3.6.1"},
       {:faker, "~> 0.12.0"},
-      {:dlex, "~> 0.2.1"}
+      {:dlex, "~> 0.3.0"}
     ]
   end
 end
