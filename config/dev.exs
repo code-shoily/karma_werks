@@ -13,10 +13,10 @@ config :karma_werks, KarmaWerksWeb.Endpoint,
   check_origin: false,
   watchers: [
     node: [
-      "node_modules/webpack/bin/webpack.js",
-      "--mode",
-      "development",
-      "--watch-stdin",
+      "node_modules/@stencil/core/bin/stencil",
+      "build",
+      "--dev",
+      "--watch",
       cd: Path.expand("../assets", __DIR__)
     ]
   ]
