@@ -23,7 +23,8 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
-    "@stencil/core": "1.7.4"
+    "@stencil/core": "1.7.4",
+    "@stencil/sass": "^1.1.0"
   },
   "license": "MIT",
   "dependencies": {
