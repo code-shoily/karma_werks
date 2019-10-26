@@ -13,7 +13,7 @@ defmodule KarmaWerksWeb.Endpoint do
     at: "/",
     from: :karma_werks,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(stencil images favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

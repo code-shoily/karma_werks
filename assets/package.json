@@ -13,7 +13,7 @@
   "files": [
     "../priv/static/dist/",
     "../priv/static/loader/",
-    "../priv/static/js/"
+    "../priv/static/stencil/"
   ],
   "scripts": {
     "deploy": "stencil build --docs",
@@ -28,6 +28,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@types/mocha": "^5.2.7"
+    "@types/mocha": "^5.2.7",
+    "uikit": "^3.2.2"
   }
 }
