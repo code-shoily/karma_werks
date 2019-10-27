@@ -5,11 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>KarmaWerks · Phoenix Framework</title>
-    <link rel="stylesheet" href='<%= Routes.static_path(@conn, "/stencil/build/assets.css") %>' />
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>
     <%= render @view_module, @view_template, assigns %>
-    <script type="module" src='<%= Routes.static_path(@conn, "/stencil/build/assets.esm.js") %>'></script>
-    <script nomodule src='<%= Routes.static_path(@conn, "/stencil/build/assets.js") %>'></script>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
