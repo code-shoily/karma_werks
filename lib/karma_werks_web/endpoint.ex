@@ -5,6 +5,8 @@ defmodule KarmaWerksWeb.Endpoint do
     websocket: true,
     longpoll: false
 
+  socket "/live", Phoenix.LiveView.Socket
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest
@@ -13,7 +15,7 @@ defmodule KarmaWerksWeb.Endpoint do
     at: "/",
     from: :karma_werks,
     gzip: false,
-    only: ~w(stencil images favicon.ico robots.txt)
+    only: ~w(css js images favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

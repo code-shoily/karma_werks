@@ -59,7 +59,8 @@ config :karma_werks, KarmaWerksWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/karma_werks_web/{live,views}/.*(ex)$",
-      ~r"lib/karma_werks_web/templates/.*(eex)$"
+      ~r"lib/karma_werks_web/templates/.*(eex)$",
+      ~r"lib/karma_werks_web/live/.*(ex)$"
     ]
   ]
 
