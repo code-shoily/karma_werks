@@ -28,6 +28,8 @@ defmodule KarmaWerks.Auth.Services do
     end
   end
 
+  def register_user(~M/email, phone/), do: register_user(~m/email, phone/)
+
   @doc """
   Fetches the user with matching `uid`. Returns `nil` if user not found.
   """

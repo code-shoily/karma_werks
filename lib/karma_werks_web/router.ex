@@ -21,7 +21,12 @@ defmodule KarmaWerksWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", KarmaWerksWeb do
-  #   pipe_through :api
-  # end
+  scope "/api" do
+    pipe_through :api
+
+    forward "/playground", Absinthe.Plug.GraphiQL,
+      schema: KarmaWerksWeb.Api.Schema
+    forward "/", Absinthe.Plug,
+      schema: KarmaWerksWeb.Api.Schema
+  end
 end

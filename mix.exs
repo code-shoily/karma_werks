@@ -37,15 +37,17 @@ defmodule KarmaWerks.MixProject do
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"},
+      {:jason, "~> 1.1.2"},
+      {:plug_cowboy, "~> 2.1.0"},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
-      {:shorter_maps, "~> 2.0"},
-      {:ex_phone_number, "~> 0.1"},
+      {:shorter_maps, "~> 2.2.5"},
+      {:faker, "~> 0.13"},
+      {:ex_phone_number, "~> 0.2.0"},
       {:timex, "~> 3.6.1"},
-      {:faker, "~> 0.12.0"},
-      {:dlex, "~> 0.3.0"},
-      {:phoenix_live_view, "0.3.1"}
+      {:dlex, "~> 0.4.0"},
+      {:phoenix_live_view, "0.4.1"},
+      {:absinthe, "~> 1.4"},
+      {:absinthe_plug, "~> 1.4"},
     ]
   end
 end
