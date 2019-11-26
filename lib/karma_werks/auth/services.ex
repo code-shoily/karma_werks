@@ -8,27 +8,29 @@ defmodule KarmaWerks.Auth.Services do
           required(String.t()) => String.t()
         }
 
-  @user_type "User"
-
   @doc """
   Creates a new user.
 
   TODO: Use upsert for testing for uniqueness
   """
   @spec register_user(registration_input) :: {:ok, map()} | {:error, any()}
-  def register_user(~m/email, phone/ = params) do
-    with {:email, {:ok, []}} <- {:email, get_user_by("email", email)},
-         {:phone, {:ok, []}} <- {:phone, get_user_by("phone", phone)} do
-      payload = params |> Map.put("dgraph.type", @user_type)
+  def register_user(~m/name, email, bio, password/) do
+    with {:email, {:ok, []}} <- {:email, get_user_by("email", email)} do
+      payload = %{
+        "user_name" => name,
+        "user_email" => email,
+        "user_bio" => bio,
+        "user_password" => password,
+      }
       Dlex.mutate(:karma_werks, payload)
     else
       {:email, _} -> {:error, "User with email #{email} already exists"}
-      {:phone, _} -> {:error, "User with phone #{phone} already exists"}
       _ -> {:error, "Error in registration"}
     end
   end
 
-  def register_user(~M/email, phone/), do: register_user(~m/email, phone/)
+  def register_user(~M/name, email, bio, password/), do:
+    register_user(~m/name, email, bio, password/)
 
   @doc """
   Fetches the user with matching `uid`. Returns `nil` if user not found.
@@ -38,7 +40,10 @@ defmodule KarmaWerks.Auth.Services do
     query = ~s/{
       result (func: uid(#{uid})) {
         uid
-        expand(_all_)
+        name : user_name
+        email : user_email
+        bio : user_bio
+        password : user_password
       }
     }/ |> String.replace("\n", "")
 
@@ -54,9 +59,12 @@ defmodule KarmaWerks.Auth.Services do
   @spec get_user_by(String.t(), String.t()) :: {:ok, [map()]} | {:error, any}
   def get_user_by(attribute, value) do
     query = ~s/{
-      result (func: eq(#{attribute}, "#{value}")) {
+      result (func: eq(user_#{attribute}, "#{value}")) {
         uid
-        expand(_all_)
+        name : user_name
+        email : user_email
+        bio : user_bio
+        password : user_password
       }
     }/ |> String.replace("\n", "")
 
@@ -78,17 +86,6 @@ defmodule KarmaWerks.Auth.Services do
   end
 
   @doc """
-  Returns the user with matching `phone`, `nil` otherwise.
-  """
-  @spec get_user_by_phone(String.t()) :: nil | map()
-  def get_user_by_phone(phone) do
-    case get_user_by("phone", phone) do
-      {:ok, [result]} -> result
-      _ -> nil
-    end
-  end
-
-  @doc """
   Deletes the user with matching `uid`.
 
   TODO: This function will go away
@@ -102,10 +99,11 @@ defmodule KarmaWerks.Auth.Services do
   Updates user matching `uid` based on data given in `params`.
   """
   @spec update_user(String.t(), map()) :: {:ok, map()} | {:error, any}
-  def update_user(uid, params) do
-    payload = params |> Map.put("uid", uid)
-
-    Dlex.mutate(:karma_werks, payload)
+  def update_user(uid, fields) do
+    uid
+    |> get_user_by_uid()
+    |> Map.merge(fields |> prefixed_keys("user_"))
+    |> (fn d -> Dlex.mutate(:karma_werks, d) end).()
   end
 
   @doc """
@@ -114,12 +112,12 @@ defmodule KarmaWerks.Auth.Services do
   @spec authenticate(String.t(), String.t()) :: bool
   def authenticate(email, password) do
     query = ~s/{
-      result (func: eq(email, "#{email}")) {
-        checkpwd(password, "#{password}")
+      result (func: eq(user_email, "#{email}")) {
+        checkpwd(user_password, "#{password}")
       }
     }/ |> String.replace("\n", "")
 
-    {:ok, %{"result" => [%{"checkpwd(password)" => result}]}} = Dlex.query(:karma_werks, query)
+    {:ok, %{"result" => [%{"checkpwd(user_password)" => result}]}} = Dlex.query(:karma_werks, query)
 
     result
   end
@@ -138,5 +136,14 @@ defmodule KarmaWerks.Auth.Services do
     else
       {:error, "Wrong password provided"}
     end
+  end
+
+  def prefixed_keys(params, prefix) do
+    params
+    |> Map.to_list()
+    |> Enum.map(fn {k, v} ->
+      {prefix <> to_string(k), v}
+    end)
+    |> Enum.into(%{})
   end
 end
