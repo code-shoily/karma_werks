@@ -48,6 +48,7 @@ defmodule KarmaWerks.MixProject do
       {:phoenix_live_view, "0.4.1"},
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
+      {:atomic_map, "~> 0.9"}
     ]
   end
 end
