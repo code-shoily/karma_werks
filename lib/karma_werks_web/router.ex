@@ -24,9 +24,7 @@ defmodule KarmaWerksWeb.Router do
   scope "/api" do
     pipe_through :api
 
-    forward "/playground", Absinthe.Plug.GraphiQL,
-      schema: KarmaWerksWeb.Api.Schema
-    forward "/", Absinthe.Plug,
-      schema: KarmaWerksWeb.Api.Schema
+    forward "/playground", Absinthe.Plug.GraphiQL, schema: KarmaWerksWeb.Api.Schema
+    forward "/", Absinthe.Plug, schema: KarmaWerksWeb.Api.Schema
   end
 end
