@@ -4,46 +4,44 @@ defmodule KarmaWerks.DB.Migrations do
   import ShorterMaps
 
   @predicates ~S/
-    name: string @index(term, fulltext, trigram) .
-    email: string @index(exact) @upsert .
-    password: password .
-    phone: string @index(exact) @upsert .
-    bio: string @index(fulltext, trigram) .
-    joinDate: dateTime .
-    slug: string @index(exact) @upsert .
-    members: [uid] @reverse @count .
-  /
-
-  @types ~S/
-    type User {
-      name: string
-      email: string
-      password: password
-      phone: string
-      bio: string
-      joinDate: dateTime
-    }
-
-    type Organization {
-      name: string
-      slug: string
-      members: [uid]
-    }
+    <activity_objects>: [uid] @count @reverse .
+    <activity_user>: uid @reverse .
+    <activity_verb>: string @index(exact) .
+    <comment_date>: datetime @index(day) .
+    <comment_text>: string .
+    <comment_user>: uid @reverse .
+    <group_members>: [uid] @count @reverse .
+    <group_name>: string @index(exact) .
+    <state_group>: uid @reverse .
+    <state_name>: string @index(exact) .
+    <state_value>: int @index(int) .
+    <tag_name>: string @index(exact) .
+    <task_activities>: [uid] @count @reverse .
+    <task_ancestors>: [uid] @count @reverse .
+    <task_asignees>: [uid] @count @reverse .
+    <task_blockers>: [uid] @count @reverse .
+    <task_comments>: [uid] @count @reverse .
+    <task_description>: string @index(exact, fulltext, trigram) .
+    <task_group>: uid @reverse .
+    <task_owner>: uid @reverse .
+    <task_state>: int @index(int) .
+    <task_tags>: [uid] @count @reverse .
+    <task_title>: string @index(exact, fulltext, trigram) .
+    <user_bio>: string @index(exact, fulltext, trigram) .
+    <user_email>: string @index(exact, fulltext, trigram) .
+    <user_name>: string @index(exact, fulltext, trigram) .
+    <user_password>: password .
+    <user_phone>: string @index(exact, fulltext, trigram) .
   /
 
   defp create_predicates do
     Dlex.alter(:karma_werks, @predicates)
   end
 
-  defp create_types do
-    Dlex.alter(:karma_werks, @types)
-  end
-
   @spec run :: {:ok, map} | {:error, Dlex.Error.t | term}
   def run do
-    with {:ok, predicates} <- create_predicates(),
-         {:ok, types} <- create_types() do
-      {:ok, ~M{predicates, types}}
+    with {:ok, predicates} <- create_predicates() do
+      {:ok, ~M{predicates}}
     else
       error -> error
     end
