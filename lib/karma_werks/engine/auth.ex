@@ -3,6 +3,7 @@ defmodule KarmaWerks.Engine.Auth do
   Authentication management services
   """
   import ShorterMaps
+  alias KarmaWerks.Engine.Helpers
 
   @type registration_input :: %{
           name: String.t(),
@@ -17,15 +18,9 @@ defmodule KarmaWerks.Engine.Auth do
   TODO: Use upsert for testing for uniqueness
   """
   @spec register_user(registration_input) :: {:ok, map()} | {:error, any()}
-  def register_user(~M/name, email, bio, password/) do
+  def register_user(%{"name" => _, "email" => email, "bio" => _, "password" => _} = payload) do
     with {:email, nil} <- {:email, get_user_by_email(email)} do
-      payload = %{
-        "name" => name,
-        "email" => email,
-        "bio" => bio,
-        "password" => password,
-      }
-      Dlex.mutate(:karma_werks, payload)
+      Dlex.mutate(:karma_werks, payload |> Map.merge(%{"type" => "User"}))
     else
       {:email, _} -> {:error, "User with email #{email} already exists"}
       _ -> {:error, "Error in registration"}
@@ -38,14 +33,19 @@ defmodule KarmaWerks.Engine.Auth do
   @spec get_user_by_uid(String.t()) :: map() | nil
   def get_user_by_uid(uid) do
     query = ~s/{
-      result (func: uid(#{uid})) {
+      result (func: uid(#{uid})) @recurse {
         uid
         name
         email
         bio
         password
+        type
+        groups : ~members
+        description
+        ~asignees
+        ~owner
       }
-    }/ |> String.replace("\n", "")
+    }/ |> Helpers.format()
 
     case Dlex.query(:karma_werks, query) do
       {:ok, %{"result" => [node]}} when map_size(node) > 1 -> node
@@ -64,6 +64,7 @@ defmodule KarmaWerks.Engine.Auth do
         name
         email
         bio
+        type
       }
     }/ |> String.replace("\n", "")
 
@@ -114,7 +115,7 @@ defmodule KarmaWerks.Engine.Auth do
       result (func: eq(email, "#{email}")) {
         checkpwd(password, "#{password}")
       }
-    }/ |> String.replace("\n", "")
+    }/ |> Helpers.format()
 
     {:ok, %{"result" => [%{"checkpwd(password)" => result}]}} = Dlex.query(:karma_werks, query)
 

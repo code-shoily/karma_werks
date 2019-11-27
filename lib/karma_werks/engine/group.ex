@@ -1,24 +1,57 @@
 defmodule KarmaWerks.Engine.Group do
+  alias KarmaWerks.Engine.Auth
+  alias KarmaWerks.Engine.Helpers
+
   @moduledoc """
   Group management services
   """
-  def get_user_groups(uid, opts) do
-    :not_implemented
+  def get_user_groups(uid) do
+    case Auth.get_user_by_uid(uid) do
+      %{"groups" => groups} -> groups
+      _ -> []
+    end
   end
 
-  def create_group(params) do
-    :not_implemented
+  def create_group(%{"name" => _} = params) do
+    Dlex.mutate(:karma_werks, params |> Map.merge(%{"type" => "Group"}))
   end
 
-  def add_members(uid, members) do
-    :implement_me
+  def create_group(_), do: :error
+
+  def add_member(group_uid, member_uid) do
+    case Auth.get_user_by_uid(member_uid) do
+      nil -> :error
+      _ -> Dlex.mutate(:karma_werks, ~s[
+        <#{group_uid}> <members> <#{member_uid}> .
+      ] |> Helpers.format())
+    end
   end
 
-  def add_member(uid, member) do
-    :implement_me
+  def remove_member(group_uid, member_uid) do
+    case Auth.get_user_by_uid(member_uid) do
+      nil -> :error
+      _ -> Dlex.delete(:karma_werks, ~s[
+        <#{group_uid}> <members> <#{member_uid}> * .
+      ] |> Helpers.format())
+    end
   end
 
-  def get_group_members(uid) do
-    :implement_me
+  def get_group(uid) do
+    query = ~s/{
+      result (func: uid(#{uid})) {
+        uid
+        name
+        members {
+          uid
+          email
+          name
+        }
+      }
+    }/ |> String.replace("\n", "")
+
+    case Dlex.query(:karma_werks, query) do
+      {:ok, %{"result" => [node]}} when map_size(node) > 1 -> node
+      _ -> nil
+    end
   end
 end

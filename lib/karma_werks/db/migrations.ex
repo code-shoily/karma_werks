@@ -24,7 +24,7 @@ defmodule KarmaWerks.DB.Migrations do
     <tags>: [uid] @count @reverse .
     <bio>: string @index(exact, fulltext, trigram) .
     <email>: string @index(exact, fulltext, trigram) .
-    <kind>: string @index(exact) .
+    <type>: string @index(exact) .
     <password>: password .
   /
 
