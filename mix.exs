@@ -46,8 +46,6 @@ defmodule KarmaWerks.MixProject do
       {:timex, "~> 3.6.1"},
       {:dlex, "~> 0.4.0"},
       {:phoenix_live_view, "0.4.1"},
-      {:absinthe, "~> 1.4"},
-      {:absinthe_plug, "~> 1.4"},
       {:atomic_map, "~> 0.9"}
     ]
   end

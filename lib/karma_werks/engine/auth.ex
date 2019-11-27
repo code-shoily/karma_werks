@@ -1,11 +1,14 @@
-defmodule KarmaWerks.Auth.Services do
+defmodule KarmaWerks.Engine.Auth do
   @moduledoc """
   Authentication management services
   """
   import ShorterMaps
 
   @type registration_input :: %{
-          required(String.t()) => String.t()
+          name: String.t(),
+          email: String.t(),
+          bio: String.t(),
+          password: String.t()
         }
 
   @doc """
@@ -14,13 +17,13 @@ defmodule KarmaWerks.Auth.Services do
   TODO: Use upsert for testing for uniqueness
   """
   @spec register_user(registration_input) :: {:ok, map()} | {:error, any()}
-  def register_user(~m/name, email, bio, password/) do
-    with {:email, {:ok, []}} <- {:email, get_user_by("email", email)} do
+  def register_user(~M/name, email, bio, password/) do
+    with {:email, nil} <- {:email, get_user_by_email(email)} do
       payload = %{
-        "user_name" => name,
-        "user_email" => email,
-        "user_bio" => bio,
-        "user_password" => password,
+        "name" => name,
+        "email" => email,
+        "bio" => bio,
+        "password" => password,
       }
       Dlex.mutate(:karma_werks, payload)
     else
@@ -28,9 +31,6 @@ defmodule KarmaWerks.Auth.Services do
       _ -> {:error, "Error in registration"}
     end
   end
-
-  def register_user(~M/name, email, bio, password/), do:
-    register_user(~m/name, email, bio, password/)
 
   @doc """
   Fetches the user with matching `uid`. Returns `nil` if user not found.
@@ -40,10 +40,10 @@ defmodule KarmaWerks.Auth.Services do
     query = ~s/{
       result (func: uid(#{uid})) {
         uid
-        name : user_name
-        email : user_email
-        bio : user_bio
-        password : user_password
+        name
+        email
+        bio
+        password
       }
     }/ |> String.replace("\n", "")
 
@@ -59,12 +59,11 @@ defmodule KarmaWerks.Auth.Services do
   @spec get_user_by(String.t(), String.t()) :: {:ok, [map()]} | {:error, any}
   def get_user_by(attribute, value) do
     query = ~s/{
-      result (func: eq(user_#{attribute}, "#{value}")) {
+      result (func: eq(#{attribute}, "#{value}")) {
         uid
-        name : user_name
-        email : user_email
-        bio : user_bio
-        password : user_password
+        name
+        email
+        bio
       }
     }/ |> String.replace("\n", "")
 
@@ -102,7 +101,7 @@ defmodule KarmaWerks.Auth.Services do
   def update_user(uid, fields) do
     uid
     |> get_user_by_uid()
-    |> Map.merge(fields |> prefixed_keys("user_"))
+    |> Map.merge(fields)
     |> (fn d -> Dlex.mutate(:karma_werks, d) end).()
   end
 
@@ -112,12 +111,12 @@ defmodule KarmaWerks.Auth.Services do
   @spec authenticate(String.t(), String.t()) :: bool
   def authenticate(email, password) do
     query = ~s/{
-      result (func: eq(user_email, "#{email}")) {
-        checkpwd(user_password, "#{password}")
+      result (func: eq(email, "#{email}")) {
+        checkpwd(password, "#{password}")
       }
     }/ |> String.replace("\n", "")
 
-    {:ok, %{"result" => [%{"checkpwd(user_password)" => result}]}} = Dlex.query(:karma_werks, query)
+    {:ok, %{"result" => [%{"checkpwd(password)" => result}]}} = Dlex.query(:karma_werks, query)
 
     result
   end

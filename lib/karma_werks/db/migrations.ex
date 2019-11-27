@@ -4,34 +4,28 @@ defmodule KarmaWerks.DB.Migrations do
   import ShorterMaps
 
   @predicates ~S/
-    <activity_objects>: [uid] @count @reverse .
-    <activity_user>: uid @reverse .
-    <activity_verb>: string @index(exact) .
-    <comment_date>: datetime @index(day) .
-    <comment_text>: string .
-    <comment_user>: uid @reverse .
-    <group_members>: [uid] @count @reverse .
-    <group_name>: string @index(exact) .
-    <state_group>: uid @reverse .
-    <state_name>: string @index(exact) .
-    <state_value>: int @index(int) .
-    <tag_name>: string @index(exact) .
-    <task_activities>: [uid] @count @reverse .
-    <task_ancestors>: [uid] @count @reverse .
-    <task_asignees>: [uid] @count @reverse .
-    <task_blockers>: [uid] @count @reverse .
-    <task_comments>: [uid] @count @reverse .
-    <task_description>: string @index(exact, fulltext, trigram) .
-    <task_group>: uid @reverse .
-    <task_owner>: uid @reverse .
-    <task_state>: int @index(int) .
-    <task_tags>: [uid] @count @reverse .
-    <task_title>: string @index(exact, fulltext, trigram) .
-    <user_bio>: string @index(exact, fulltext, trigram) .
-    <user_email>: string @index(exact, fulltext, trigram) .
-    <user_name>: string @index(exact, fulltext, trigram) .
-    <user_password>: password .
-    <user_phone>: string @index(exact, fulltext, trigram) .
+    <objects>: [uid] @count @reverse .
+    <verb>: string @index(exact) .
+    <start_date>: datetime @index(day) .
+    <end_date>: datetime @index(day) .
+    <date>: datetime @index(day) .
+    <comment>: string .
+    <owner>: uid @reverse .
+    <members>: [uid] @count @reverse .
+    <name>: string @index(exact) .
+    <activities>: [uid] @count @reverse .
+    <ancestors>: [uid] @count @reverse .
+    <asignees>: [uid] @count @reverse .
+    <blockers>: [uid] @count @reverse .
+    <comments>: [uid] @count @reverse .
+    <description>: string @index(exact, fulltext, trigram) .
+    <group>: uid @reverse .
+    <state>: int @index(int) .
+    <tags>: [uid] @count @reverse .
+    <bio>: string @index(exact, fulltext, trigram) .
+    <email>: string @index(exact, fulltext, trigram) .
+    <kind>: string @index(exact) .
+    <password>: password .
   /
 
   defp create_predicates do
