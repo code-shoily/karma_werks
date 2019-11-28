@@ -8,7 +8,7 @@ Setting up KarmaWerks:
 * Install dependencies with `mix deps.get`
 * Install Node.js dependencies with `cd assets && npm install`
 * Start Phoenix endpoint along with interactive REPL with `iex -S mix phx.server`
-* In the `REPL`, type `KarmaWerks.DB.Migrations.run` to setup the `dgraph` types.
+* In the `REPL`, type `KarmaWerks.DB.Migrations.run` to setup `dgraph` and `KarmaWerks.DB.Seeds.run` if you want to populate with some nodes.
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
