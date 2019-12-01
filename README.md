@@ -1,5 +1,7 @@
 # KarmaWerks
 
+#### NOTE: This branch contains the quickly stitched version. This will stop existing once the clean branch is feature par with this.
+
 KarmaWerks is a work-in-progress Project Management tool created with Elixir, Phoenix, LiveView, Stencil and Dgraph.
 
 Setting up KarmaWerks:
