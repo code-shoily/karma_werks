@@ -3,30 +3,9 @@ defmodule KarmaWerks.DB.Migrations do
 
   import ShorterMaps
 
-  @predicates ~S/
-    <objects>: [uid] @count @reverse .
-    <verb>: string @index(exact) .
-    <start_date>: datetime @index(day) .
-    <end_date>: datetime @index(day) .
-    <date>: datetime @index(day) .
-    <comment>: string .
-    <owner>: uid @reverse .
-    <members>: [uid] @count @reverse .
-    <name>: string @index(exact) .
-    <activities>: [uid] @count @reverse .
-    <ancestors>: [uid] @count @reverse .
-    <asignees>: [uid] @count @reverse .
-    <blockers>: [uid] @count @reverse .
-    <comments>: [uid] @count @reverse .
-    <description>: string @index(exact, fulltext, trigram) .
-    <group>: uid @reverse .
-    <state>: int @index(int) .
-    <tags>: [uid] @count @reverse .
-    <bio>: string @index(exact, fulltext, trigram) .
-    <email>: string @index(exact, fulltext, trigram) .
-    <type>: string @index(exact) .
-    <password>: password .
-  /
+  # Predicate definition should appear here
+  # ie. `<comments>: [uid] @count @reverse .`
+  @predicates ~S//
 
   defp create_predicates do
     Dlex.alter(:karma_werks, @predicates)
