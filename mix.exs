@@ -45,8 +45,7 @@ defmodule KarmaWerks.MixProject do
       {:ex_phone_number, "~> 0.2.0"},
       {:timex, "~> 3.6.1"},
       {:dlex, "~> 0.4.0"},
-      {:phoenix_live_view, "0.4.1"},
-      {:atomic_map, "~> 0.9"}
+      {:phoenix_live_view, "0.4.1"}
     ]
   end
 end
