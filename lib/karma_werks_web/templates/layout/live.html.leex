@@ -1,0 +1,15 @@
+<main role="main" class="container is-fluid">
+  <%= if live_flash(@flash, :info) do %>
+    <div class="notification is-info is-light" role="alert" phx-value-key="error">
+      <button class="delete" phx-click="lv:clear-flash"></button>
+      <%= live_flash(@flash, :info) %>
+    </div>
+  <% end %>
+  <%= if live_flash(@flash, :error) do %>
+    <div class="notification is-danger is-light" role="alert" phx-value-key="error">
+      <button class="delete" phx-click="lv:clear-flash"></button>
+      <%= live_flash(@flash, :error) %>
+    </div>
+  <% end %>
+  <%= @inner_content %>
+</main>
