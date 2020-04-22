@@ -7,15 +7,16 @@
 # General application configuration
 use Mix.Config
 
+config :karma_werks,
+  ecto_repos: [KarmaWerks.Repo]
+
 # Configures the endpoint
 config :karma_werks, KarmaWerksWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "fVjFd2jvQwOIddTemD3cqPQOxHz/II5d2G6qV565llpmLzhcsxMuQ+EWLK7YTlhM",
-  render_errors: [view: KarmaWerksWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: KarmaWerks.PubSub, adapter: Phoenix.PubSub.PG2],
-  live_view: [
-    signing_salt: "zasJ*43UJqR8uYh"
-  ]
+  secret_key_base: "lRNhSTG30BjleDMhQlIM2XQ8/eVjCPiLlGWXI/60mi6mywi58IMZGoGGWkqLVWfW",
+  render_errors: [view: KarmaWerksWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: KarmaWerks.PubSub,
+  live_view: [signing_salt: "fCQqdsZQ"]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -23,10 +24,7 @@ config :logger, :console,
   metadata: [:request_id]
 
 # Use Jason for JSON parsing in Phoenix
-config :phoenix, [
-  json_library: Jason,
-  template_engines: [leex: Phoenix.LiveView.Engine]
-]
+config :phoenix, :json_library, Jason
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -6,13 +6,17 @@ defmodule KarmaWerks.Application do
   use Application
 
   def start(_type, _args) do
-    # List all child processes to be supervised
     children = [
-      # Start the endpoint when the application starts
-      KarmaWerksWeb.Endpoint,
-      {Dlex, [name: :karma_werks]}
-      # Starts a worker by calling: KarmaWerks.Worker.start_link(arg)
-      # {KarmaWerks.Worker, arg},
+      # Start the Ecto repository
+      KarmaWerks.Repo,
+      # Start the Telemetry supervisor
+      KarmaWerksWeb.Telemetry,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: KarmaWerks.PubSub},
+      # Start the Endpoint (http/https)
+      KarmaWerksWeb.Endpoint
+      # Start a worker by calling: KarmaWerks.Worker.start_link(arg)
+      # {KarmaWerks.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
