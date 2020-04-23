@@ -9,6 +9,7 @@ defmodule KarmaWerks.Application do
     children = [
       # Start the Ecto repository
       KarmaWerks.Repo,
+      {Dlex, [name: KarmaWerks.DgraphProcess]},
       # Start the Telemetry supervisor
       KarmaWerksWeb.Telemetry,
       # Start the PubSub system
