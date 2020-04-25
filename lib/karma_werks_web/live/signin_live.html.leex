@@ -1,0 +1,39 @@
+
+<div class="card auth-form-card">
+  <div class="card-content">
+    <div class="title has-text-weight-light has-text-centered">KarmaWerks - Sign in</div>
+    <form action="">
+      <div class="field">
+        <div class="control has-icons-left">
+          <input type="email" placeholder="Email" class="input" required>
+          <span class="icon is-small is-left">
+            <i class="fa fa-envelope"></i>
+          </span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control has-icons-left">
+          <input type="password" placeholder="Password" class="input" required>
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control has-text-centered">
+          <button class="button is-primary is-fullwidth">
+            Sign in
+          </button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control has-text-centered">
+          Don't have an account?
+          <%= live_redirect to: Routes.live_path(@socket, KarmaWerksWeb.Live.SignupLive) do %>
+            Sign Up
+          <% end %>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

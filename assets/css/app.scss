@@ -3,6 +3,10 @@
 @import "bulma";
 @import "../node_modules/nprogress/nprogress.css";
 
+.auth-form-card {
+    padding: 30px 20px;
+}
+
 /* LiveView specific classes for your customizations */
 // .invalid-feedback {
 //   color: #a94442;

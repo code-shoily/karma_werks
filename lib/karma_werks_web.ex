@@ -50,6 +50,15 @@ defmodule KarmaWerksWeb do
     end
   end
 
+  def live_auth_view do
+    quote do
+      use Phoenix.LiveView,
+        layout: {KarmaWerksWeb.LayoutView, "auth.html"}
+
+      unquote(view_helpers())
+    end
+  end
+
   def live_component do
     quote do
       use Phoenix.LiveComponent

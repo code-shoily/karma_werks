@@ -1,0 +1,26 @@
+<%= if live_flash(@flash, :info) do %>
+  <div class="notification is-info is-radiusless" role="alert" phx-value-key="info" phx-click="lv:clear-flash">
+    <div class="has-text-centered">
+      <span class="title is-5"><%= live_flash(@flash, :info) %></span>
+    </div>
+  </div>
+<% end %>
+<%= if live_flash(@flash, :error) do %>
+  <div class="notification is-danger is-radiusless" role="alert" phx-value-key="error" phx-click="lv:clear-flash">
+    <div class="has-text-centered">
+      <span class="title is-5"><%= live_flash(@flash, :error) %></span>
+    </div>
+  </div>
+<% end %>
+
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-6-tablet is-6-desktop is-5-widescreen">
+            <%= @inner_content %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
