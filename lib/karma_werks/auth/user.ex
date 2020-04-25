@@ -8,14 +8,13 @@ defmodule KarmaWerks.Auth.User do
   import Ecto.Changeset
 
   embedded_schema do
-    field :first_name, :string
-    field :last_name, :string
+    field :name, :string
     field :email, :string
     field :password, :string
     field :password_confirmation, :string, virtual: true
   end
 
-  @fields ~w/first_name last_name email password password_confirmation/a
+  @fields ~w/name email password password_confirmation/a
   def registration_changeset(user, params) do
     user
     |> cast(params, @fields)

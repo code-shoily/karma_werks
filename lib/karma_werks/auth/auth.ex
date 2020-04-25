@@ -10,7 +10,7 @@ defmodule KarmaWerks.Auth do
 
   @spec register_user(registration_input) :: {:ok, map()} | {:error, any()}
   def register_user(
-        %{"first_name" => _, "last_name" => _, "email" => email, "password" => _} = payload
+        %{"name" => _, "email" => email, "password" => _} = payload
       ) do
     with {:email, nil} <- {:email, get_user_by_email(email)} do
       payload
@@ -30,8 +30,7 @@ defmodule KarmaWerks.Auth do
     query = ~s/{
       result (func: eq(#{attribute}, "#{value}")) {
         uid
-        first_name
-        last_name
+        name
         email
       }
     }/ |> String.replace("\n", "")
@@ -70,8 +69,7 @@ defmodule KarmaWerks.Auth do
     query = ~s/{
       result (func: uid(#{uid})) {
         uid
-        first_name
-        last_name
+        name
         email
       }
     }/

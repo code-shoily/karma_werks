@@ -2,14 +2,12 @@ defmodule KarmaWerks.Dgraph.Types.User do
   alias KarmaWerks.Dgraph
 
   @stmt """
-  first_name: string @index(term) .
-  last_name: string @index(term) .
+  name: string @index(term) .
   email: string @index(exact) @upsert .
   password: password .
 
   type User {
-    first_name
-    last_name
+    name
     email
     password
   }
