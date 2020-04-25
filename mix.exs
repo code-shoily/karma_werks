@@ -48,7 +48,8 @@ defmodule KarmaWerks.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:dlex, github: "code-shoily/dlex"}
+      {:dlex, github: "code-shoily/dlex"},
+      {:nebulex, "~> 1.2.0"}
     ]
   end
 

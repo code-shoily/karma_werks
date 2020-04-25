@@ -9,13 +9,16 @@ defmodule KarmaWerks.Application do
     children = [
       # Start the Ecto repository
       KarmaWerks.Repo,
+      # Start the Dgraph client
       {Dlex, [name: KarmaWerks.DgraphProcess]},
       # Start the Telemetry supervisor
       KarmaWerksWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: KarmaWerks.PubSub},
       # Start the Endpoint (http/https)
-      KarmaWerksWeb.Endpoint
+      KarmaWerksWeb.Endpoint,
+      # Start Nebulex Worker
+      KarmaWerks.Cache
       # Start a worker by calling: KarmaWerks.Worker.start_link(arg)
       # {KarmaWerks.Worker, arg}
     ]
