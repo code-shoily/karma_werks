@@ -1,11 +1,14 @@
 
-<div class="card auth-form-card">
+<div class="animated pulse card auth-form-card has-background-light">
   <div class="card-content">
-    <div class="title has-text-weight-light has-text-centered">KarmaWerks - Sign in</div>
+    <div class="title has-text-weight-light is-2 has-text-centered">
+      Karma<span class="has-text-weight-bold">Werks</span>
+    </div>
+    <div class="subtitle is-4 has-text-centered">Sign in and continue</div>
     <form action="">
       <div class="field">
         <div class="control has-icons-left">
-          <input type="email" placeholder="Email" class="input" required>
+          <input type="email" placeholder="Email" class="input is-rounded" required>
           <span class="icon is-small is-left">
             <i class="fa fa-envelope"></i>
           </span>
@@ -13,7 +16,7 @@
       </div>
       <div class="field">
         <div class="control has-icons-left">
-          <input type="password" placeholder="Password" class="input" required>
+          <input type="password" placeholder="Password" class="input is-rounded" required>
           <span class="icon is-small is-left">
             <i class="fa fa-lock"></i>
           </span>
@@ -21,7 +24,7 @@
       </div>
       <div class="field">
         <div class="control has-text-centered">
-          <button class="button is-primary is-fullwidth">
+          <button class="button is-primary is-fullwidth is-rounded">
             Sign in
           </button>
         </div>
@@ -30,7 +33,7 @@
         <div class="control has-text-centered">
           Don't have an account?
           <%= live_redirect to: Routes.live_path(@socket, KarmaWerksWeb.Live.SignupLive) do %>
-            Sign Up
+            <span class="has-text-weight-bold">Sign Up</span>
           <% end %>
         </div>
       </div>
