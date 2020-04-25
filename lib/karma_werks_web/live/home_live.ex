@@ -13,7 +13,7 @@ defmodule KarmaWerksWeb.Live.HomeLive do
   def handle_info(:unauthorized, socket) do
     socket =
       socket
-      |> put_flash(:error, "You are logged out")
+      |> put_flash(:error, "You are not authenticated. Please sign in.")
       |> push_redirect(to: Routes.live_path(socket, KarmaWerksWeb.Live.SigninLive))
 
     {:noreply, socket}
