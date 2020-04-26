@@ -4,6 +4,7 @@ defmodule KarmaWerksWeb.Auth.SigninLive do
   use Phoenix.LiveView,
     layout: {KarmaWerksWeb.LayoutView, "auth.html"}
 
+  alias KarmaWerks.Auth
   alias KarmaWerks.Auth.User
   alias KarmaWerksWeb.AuthView
 
@@ -23,21 +24,22 @@ defmodule KarmaWerksWeb.Auth.SigninLive do
   end
 
   @impl true
-  def handle_event("validate", p, socket) do
-    IO.inspect(p)
-    {:noreply, socket}
-  end
-
-  @impl true
   def handle_event("save", %{"user" => params}, socket) do
-    changeset =
-      %User{}
-      |> User.signin_changeset(params)
+    case Auth.signin(User.signin_changeset(%User{}, params)) do
+      {:ok, true} ->
+        {:noreply, socket |> put_flash(:info, "Login successful")}
+      {:error, changeset} ->
+        socket =
+          socket
+          |> assign(changeset: %{changeset | action: :insert})
+          |> (fn socket ->
+            case changeset.errors[:base] do
+              nil -> socket
+              _ -> put_flash(socket, :error, "Invalid credentials")
+            end
+          end).()
 
-    socket =
-      socket
-      |> assign(changeset: %{changeset | action: :insert})
-
-    {:noreply, socket}
+        {:noreply, socket}
+    end
   end
 end

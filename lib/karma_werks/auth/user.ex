@@ -29,7 +29,6 @@ defmodule KarmaWerks.Auth.User do
     user
     |> cast(params, @fields)
     |> validate_required(@fields)
-    |> validate_length(:password, min: 6)
   end
 
   defp validate_password_confirmation(%{changes: changes} = changeset) do
