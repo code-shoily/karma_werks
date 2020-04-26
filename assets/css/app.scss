@@ -14,24 +14,24 @@ html {
 }
 
 /* LiveView specific classes for your customizations */
-.invalid-feedback {
-  color: #a94442;
-  display: block;
-  margin: -1rem 0 2rem;
-}
+// .invalid-feedback {
+//   color: #a94442;
+//   display: block;
+//   margin: -1rem 0 2rem;
+// }
 
-.phx-no-feedback.invalid-feedback, .phx-no-feedback .invalid-feedback {
-  display: none;
-}
+// .phx-no-feedback.invalid-feedback, .phx-no-feedback .invalid-feedback {
+//   display: none;
+// }
 
-.phx-click-loading {
-  opacity: 0.5;
-  transition: opacity 1s ease-out;
-}
+// .phx-click-loading {
+//   opacity: 0.5;
+//   transition: opacity 1s ease-out;
+// }
 
-.phx-disconnected{
-  cursor: wait;
-}
-.phx-disconnected *{
-  pointer-events: none;
-}
+// .phx-disconnected{
+//   cursor: wait;
+// }
+// .phx-disconnected *{
+//   pointer-events: none;
+// }

@@ -15,7 +15,7 @@ defmodule KarmaWerks.Auth.User do
   end
 
   @fields ~w/name email password password_confirmation/a
-  def registration_changeset(user, params) do
+  def signup_changeset(user, params \\ %{}) do
     user
     |> cast(params, @fields)
     |> validate_required(@fields)
@@ -24,11 +24,21 @@ defmodule KarmaWerks.Auth.User do
     |> Validators.validate_email(:email)
   end
 
+  @fields ~w/email password/a
+  def signin_changeset(user, params \\ %{}) do
+    user
+    |> cast(params, @fields)
+    |> validate_required(@fields)
+    |> validate_length(:password, min: 6)
+  end
+
   defp validate_password_confirmation(%{changes: changes} = changeset) do
-    if changes.password == changes.password_confirmation do
+    if changes[:password] == changes[:password_confirmation] do
       changeset
     else
-      add_error(changeset, :password_confirmation, "must match password")
+      changeset
+      |> add_error(:password, "Passwords don't match")
+      |> add_error(:password_confirmation, "Passwords don't match")
     end
   end
 end

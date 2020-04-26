@@ -1,0 +1,24 @@
+
+<div class="animated pulse card auth-form-card has-background-light">
+  <div class="card-content">
+    <div class="title has-text-weight-light is-2 has-text-centered">
+      Karma<span class="has-text-weight-bold">Werks</span>
+    </div>
+    <div class="subtitle is-4 has-text-centered">Create a new account</div>
+    <%= f = form_for @changeset, "#", [phx_submit: "save"] %>
+      <%= bulma_form_input(f, :name, icon: "user") %>
+      <%= bulma_form_input(f, :email, icon: "envelope") %>
+      <%= bulma_form_input(f, :password, icon: "lock") %>
+      <%= bulma_form_input(f, :password_confirmation, icon: "lock") %>
+      <%= bulma_form_submit("Create Account") %>
+      <div class="field">
+        <div class="control has-text-centered">
+          Already a user?
+          <%= live_redirect to: Routes.live_path(@socket, KarmaWerksWeb.Auth.SigninLive) do %>
+            <span class="has-text-weight-bold">Sign In</span>
+          <% end %>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

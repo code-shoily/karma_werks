@@ -8,6 +8,8 @@ defmodule KarmaWerks.Helpers.Validators do
     Regex.match?(@email_regex, email)
   end
 
+  def validate_email(nil), do: false
+
   def validate_email(%Changeset{changes: changes} = changeset, field) do
     if validate_email(changes[field]) do
       changeset

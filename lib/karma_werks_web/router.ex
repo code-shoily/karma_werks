@@ -14,12 +14,12 @@ defmodule KarmaWerksWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", KarmaWerksWeb.Live do
+  scope "/", KarmaWerksWeb do
     pipe_through :browser
 
     live "/", HomeLive
-    live "/sign-in", SigninLive
-    live "/sign-up", SignupLive
+    live "/sign-in", Auth.SigninLive
+    live "/sign-up", Auth.SignupLive
   end
 
   # Other scopes may use custom stacks.
