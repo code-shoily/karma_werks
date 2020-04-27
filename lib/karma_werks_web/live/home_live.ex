@@ -1,4 +1,6 @@
 defmodule KarmaWerksWeb.HomeLive do
+  alias KarmaWerks.Cache, as: TokenCache
+
   use KarmaWerksWeb, :live_view
 
   def mount(_params, %{"token" => nil}, socket) do
@@ -7,7 +9,7 @@ defmodule KarmaWerksWeb.HomeLive do
   end
 
   def mount(_params, %{"token" => token}, socket) do
-    case KarmaWerks.Cache.get(token) do
+    case TokenCache.get(token) do
       nil ->
         send(self(), :unauthorized)
         {:ok, socket}

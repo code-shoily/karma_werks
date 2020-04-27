@@ -6,6 +6,7 @@ defmodule KarmaWerksWeb.Auth.SigninLive do
 
   alias KarmaWerks.Auth
   alias KarmaWerks.Auth.User
+  alias KarmaWerks.Cache, as: TokenCache
   alias KarmaWerksWeb.AuthView
 
   # alias KarmaWerksWeb.Router.Helpers, as: Routes
@@ -36,7 +37,7 @@ defmodule KarmaWerksWeb.Auth.SigninLive do
         token =
           KarmaWerksWeb.Endpoint
           |> Phoenix.Token.sign("auth uid", uid)
-          |> KarmaWerks.Cache.set(uid, return: :key)
+          |> TokenCache.set(uid, return: :key, ttl: 10)
 
         socket =
           socket

@@ -22,9 +22,8 @@ NProgress.configure({ showSpinner: false });
 let Hooks = {}
 Hooks.SessionHook = {
     mounted() {
-        let form = this && this.el || null;
-        if (form)
-            setTimeout(() => form.submit(), 1000)
+        let form = this.el;
+        form.submit()
     }
 }
 
