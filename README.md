@@ -10,6 +10,7 @@ To start your Phoenix server:
 
 * Run the database server with `scripts/start_dgraph.sh `
 * Setup the project with `mix setup`
+* Create all your Dgraph types with `DGRAPH_PORT=9090 mix dgraph.setup`
 * Start Phoenix endpoint with `DGRAPH_PORT=9090 mix phx.server`
 
 *NOTE* If you get any port conflicts, edit the ports in `scripts/start_dgraph.sh` and use that in `DGRAPH_PORT`.
