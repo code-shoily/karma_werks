@@ -19,8 +19,17 @@ import {LiveSocket} from "phoenix_live_view"
 
 NProgress.configure({ showSpinner: false });
 
+let Hooks = {}
+Hooks.SessionHook = {
+    mounted() {
+        let form = this && this.el || null;
+        if (form)
+            setTimeout(() => form.submit(), 1000)
+    }
+}
+
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+let liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks, params: {_csrf_token: csrfToken}})
 
 // Show progress bar on live navigation and form submits
 window.addEventListener("phx:page-loading-start", info => NProgress.start())

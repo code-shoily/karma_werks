@@ -4,7 +4,24 @@
     <div class="title has-text-weight-light is-2 has-text-centered">
       Karma<span class="has-text-weight-bold">Werks</span>
     </div>
-    <div class="subtitle is-4 has-text-centered">Sign in and continue</div>
+    <div class="subtitle is-4 has-text-centered">
+      <%= if @token_changeset.valid? do %>
+        <%= f = form_for @token_changeset,
+            Routes.session_path(KarmaWerksWeb.Endpoint, :create),
+            method: :post,
+            phx_hook: "SessionHook" %>
+          <%= hidden_input f, :token %>
+        </form>
+        Redirecting
+      <% else %>
+        Sign in and continue
+      <% end %>
+    </div>
+    <%= if @has_credential_error do %>
+      <div class="subtitle is-4 has-text-centered has-text-danger">
+        Invalid credentials
+      </div>
+    <% end %>
     <%= f = form_for @changeset, "#", phx_submit: "save" %>
       <%= bulma_form_input(f, :email, icon: "envelope") %>
       <%= bulma_form_input(f, :password, icon: "lock") %>

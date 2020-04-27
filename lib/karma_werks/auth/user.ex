@@ -11,7 +11,8 @@ defmodule KarmaWerks.Auth.User do
     field :name, :string
     field :email, :string
     field :password, :string
-    field :password_confirmation, :string, virtual: true
+    field :password_confirmation, :string
+    field :token, :string
   end
 
   @fields ~w/name email password password_confirmation/a
@@ -26,6 +27,13 @@ defmodule KarmaWerks.Auth.User do
 
   @fields ~w/email password/a
   def signin_changeset(user, params \\ %{}) do
+    user
+    |> cast(params, @fields)
+    |> validate_required(@fields)
+  end
+
+  @fields ~w/token/a
+  def token_changeset(user, params \\ %{}) do
     user
     |> cast(params, @fields)
     |> validate_required(@fields)

@@ -1,8 +1,18 @@
 defmodule KarmaWerksWeb.HomeLive do
   use KarmaWerksWeb, :live_view
 
-  def mount(_params, %{"token" => _token}, socket) do
+  def mount(_params, %{"token" => nil}, socket) do
+    send(self(), :unauthorized)
     {:ok, socket}
+  end
+
+  def mount(_params, %{"token" => token}, socket) do
+    case KarmaWerks.Cache.get(token) do
+      nil ->
+        send(self(), :unauthorized)
+        {:ok, socket}
+      uid -> {:ok, assign(socket, uid: uid)}
+    end
   end
 
   def mount(_params, _session, socket) do

@@ -17,6 +17,8 @@ defmodule KarmaWerksWeb.Router do
   scope "/", KarmaWerksWeb do
     pipe_through :browser
 
+    post "/", SessionController, :create
+    get "/sign-out", SessionController, :destroy
     live "/", HomeLive
     live "/sign-in", Auth.SigninLive
     live "/sign-up", Auth.SignupLive

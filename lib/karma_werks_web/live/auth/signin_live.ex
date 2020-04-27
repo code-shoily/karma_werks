@@ -8,6 +8,9 @@ defmodule KarmaWerksWeb.Auth.SigninLive do
   alias KarmaWerks.Auth.User
   alias KarmaWerksWeb.AuthView
 
+  # alias KarmaWerksWeb.Router.Helpers, as: Routes
+  # alias KarmaWerksWeb.HomeLive
+
   @impl true
   def render(assigns) do
     Phoenix.View.render(AuthView, "signin.html", assigns)
@@ -17,8 +20,11 @@ defmodule KarmaWerksWeb.Auth.SigninLive do
   def mount(_params, _session, socket) do
     socket =
       socket
-      |> assign(changeset: User.signin_changeset(%User{}))
-      |> assign(classes: %{email_error: "", password_error: ""})
+      |> assign(token_changeset: User.token_changeset(%User{}))
+      |> assign(has_credential_error: false)
+      |> assign(
+        changeset: User.signin_changeset(%User{})
+      )
 
     {:ok, socket}
   end
@@ -26,18 +32,24 @@ defmodule KarmaWerksWeb.Auth.SigninLive do
   @impl true
   def handle_event("save", %{"user" => params}, socket) do
     case Auth.signin(User.signin_changeset(%User{}, params)) do
-      {:ok, true} ->
-        {:noreply, socket |> put_flash(:info, "Login successful")}
+      {:ok, uid} ->
+        token =
+          KarmaWerksWeb.Endpoint
+          |> Phoenix.Token.sign("auth uid", uid)
+          |> KarmaWerks.Cache.set(uid, return: :key)
+
+        socket =
+          socket
+          |> assign(has_credential_error: false)
+          |> assign(token_changeset: User.token_changeset(%User{token: token}))
+
+        {:noreply, socket}
+
       {:error, changeset} ->
         socket =
           socket
           |> assign(changeset: %{changeset | action: :insert})
-          |> (fn socket ->
-            case changeset.errors[:base] do
-              nil -> socket
-              _ -> put_flash(socket, :error, "Invalid credentials")
-            end
-          end).()
+          |> assign(has_credential_error: (changeset.errors[:base] && true) || false)
 
         {:noreply, socket}
     end

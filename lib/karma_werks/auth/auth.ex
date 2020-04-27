@@ -20,13 +20,13 @@ defmodule KarmaWerks.Auth do
 
   def signup(changeset), do: {:error, changeset}
 
-  @spec signin(Changeset.t()) :: {:ok, true} | {:error, Changeset.t()}
+  @spec signin(Changeset.t()) :: {:ok, binary()} | {:error, Changeset.t()}
   def signin(%Changeset{changes: changes, valid?: true} = changeset) do
     case Operations.authenticate(changes[:email], changes[:password]) do
-      true ->
-        {:ok, true}
+      {true, uid} ->
+        {:ok, uid}
 
-      false ->
+      _ ->
         changeset =
           changeset
           |> Changeset.add_error(:base, "Invalid credentials")
