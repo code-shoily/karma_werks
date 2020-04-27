@@ -1,30 +1,4 @@
-<nav class="navbar is-primary">
-  <div class="navbar-brand">
-    <div class="navbar-item">
-      <span class="title is-3 has-text-white">
-      <span class="has-text-weight-light">Karma</span><span class="has-text-weight-bold">Werks</span>
-      </span>
-    </div>
-    <div class="navbar-burger burger" data-target="nav-menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
-
-  <div id="nav-menu" class="navbar-menu">
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="field is-grouped">
-          <p class="control">
-            <a class="button is-danger has-text-weight-bold" href="/sign-out">Logout</a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
-
+<%= live_component @socket, KarmaWerksWeb.Common.NavbarComponent %>
 <main role="main" class="container is-fluid" style="padding-top: 10px">
   <%= if live_flash(@flash, :info) do %>
     <div class="notification is-info is-light" role="alert" phx-value-key="error">
