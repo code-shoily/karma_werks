@@ -4,6 +4,7 @@ defmodule KarmaWerks.Auth do
 
   @spec signup(Changeset.t()) :: {:ok, map()} | {:error, Changeset.t()}
   def signup(%Changeset{changes: changes, valid?: true} = changeset) do
+    changes = Map.delete(changes, :password_confirmation)
     case Operations.create_user(changes) do
       {:ok, _} = data ->
         data

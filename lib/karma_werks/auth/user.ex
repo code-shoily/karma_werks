@@ -11,7 +11,7 @@ defmodule KarmaWerks.Auth.User do
     field :name, :string
     field :email, :string
     field :password, :string
-    field :password_confirmation, :string
+    field :password_confirmation, :string, virtual: true
     field :token, :string
   end
 
