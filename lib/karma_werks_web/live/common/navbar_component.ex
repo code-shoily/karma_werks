@@ -1,14 +1,34 @@
 defmodule KarmaWerksWeb.Common.NavbarComponent do
+  alias KarmaWerks.Auth.Operations
+
   use KarmaWerksWeb, :live_component
+
+  def update(assigns, socket) do
+    user = Operations.get_user_by_uid(assigns.uid)
+
+    {:ok, assign(socket, user: user)}
+  end
+
+  def handle_event("user-update", _, socket) do
+    IO.inspect("Profile will be updated for #{uid(socket)}")
+    {:noreply, socket}
+  end
+
+  def handle_event("user-update-password", _, socket) do
+    IO.inspect("Password will be changed for #{uid(socket)}")
+    {:noreply, socket}
+  end
+
+  defp uid(socket), do: socket.assigns.user["uid"]
 
   def render(assigns) do
     ~L"""
     <nav class="navbar is-primary">
       <div class="navbar-brand">
         <div class="navbar-item">
-          <span class="title is-3 has-text-white">
-          <span class="has-text-weight-light">Karma</span><span class="has-text-weight-bold">Werks</span>
-          </span>
+          <div class="title is-3 has-text-weight-light has-text-white">
+            Karma<span class="has-text-weight-bold">Werks</span>
+          </div>
         </div>
         <div class="navbar-burger burger" data-target="nav-menu">
           <span></span>
@@ -19,11 +39,21 @@ defmodule KarmaWerksWeb.Common.NavbarComponent do
 
       <div id="nav-menu" class="navbar-menu">
         <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="field is-grouped">
-              <p class="control">
-                <a class="button is-danger has-text-weight-bold" href="/sign-out">Logout</a>
-              </p>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-item has-text-white navbar-link">
+              <%= @user["name"] %>
+            </a>
+            <div class="navbar-dropdown is-right">
+              <a class="navbar-item" href="#" phx-click="user-update" phx-target="<%= @myself %>">
+                Update Profile
+              </a>
+              <a class="navbar-item" href="#" phx-click="user-update-password" phx-target="<%= @myself %>">
+                Change Password
+              </a>
+              <hr class="navbar-divider">
+              <a class="navbar-item has-text-danger" href="/sign-out">
+                Sign-out
+              </a>
             </div>
           </div>
         </div>

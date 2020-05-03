@@ -1,33 +1,9 @@
 defmodule KarmaWerksWeb.HomeLive do
-  alias KarmaWerks.Cache, as: TokenCache
+  @moduledoc false
 
-  use KarmaWerksWeb, :live_view
+  use KarmaWerksWeb.AuthHandler
 
-  def mount(_params, %{"token" => nil}, socket) do
-    send(self(), :unauthorized)
-    {:ok, socket}
-  end
-
-  def mount(_params, %{"token" => token}, socket) do
-    case TokenCache.get(token) do
-      nil ->
-        send(self(), :unauthorized)
-        {:ok, socket}
-      uid -> {:ok, assign(socket, uid: uid)}
-    end
-  end
-
-  def mount(_params, _session, socket) do
-    send(self(), :unauthorized)
-    {:ok, socket}
-  end
-
-  def handle_info(:unauthorized, socket) do
-    socket =
-      socket
-      |> put_flash(:error, "You are not authenticated. Please sign in.")
-      |> push_redirect(to: Routes.live_path(socket, KarmaWerksWeb.Auth.SigninLive))
-
-    {:noreply, socket}
+  def mount(_params, session, socket) do
+    {:ok, authenticate_socket(self(), socket, session)}
   end
 end

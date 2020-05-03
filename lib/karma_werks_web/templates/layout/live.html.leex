@@ -1,4 +1,4 @@
-<%= live_component @socket, KarmaWerksWeb.Common.NavbarComponent %>
+<%= live_component @socket, KarmaWerksWeb.Common.NavbarComponent, id: "live-navbar", uid: @uid %>
 <main role="main" class="container is-fluid" style="padding-top: 10px">
   <%= if live_flash(@flash, :info) do %>
     <div class="notification is-info is-light" role="alert" phx-value-key="error">
