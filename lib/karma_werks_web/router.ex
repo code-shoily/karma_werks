@@ -22,6 +22,7 @@ defmodule KarmaWerksWeb.Router do
     live "/", HomeLive
     live "/sign-in", Auth.SigninLive
     live "/sign-up", Auth.SignupLive
+    live "/reset", Auth.ResetLive
   end
 
   # Other scopes may use custom stacks.

@@ -39,6 +39,14 @@ defmodule KarmaWerks.Auth.User do
     |> validate_required(@fields)
   end
 
+  @fields ~w/email/a
+  def password_reset_changeset(user, params \\ %{}) do
+    user
+    |> cast(params, @fields)
+    |> validate_required(@fields)
+    |> Validators.validate_email(:email)
+  end
+
   defp validate_password_confirmation(%{changes: changes} = changeset) do
     if changes[:password] == changes[:password_confirmation] do
       changeset

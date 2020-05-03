@@ -1,6 +1,8 @@
 defmodule KarmaWerks.Auth do
-  alias __MODULE__.Operations
+  alias __MODULE__.{User, Operations}
   alias Ecto.Changeset
+
+  require Logger
 
   @spec signup(Changeset.t()) :: {:ok, map()} | {:error, Changeset.t()}
   def signup(%Changeset{changes: changes, valid?: true} = changeset) do
@@ -20,6 +22,15 @@ defmodule KarmaWerks.Auth do
   end
 
   def signup(changeset), do: {:error, changeset}
+
+  @spec reset(map()) :: {:ok, map()} | {:error, Changeset.t()}
+  def reset(params) do
+    Logger.warn("Password reset has not been implemented yet")
+    case User.password_reset_changeset(%User{}, params) do
+      %{valid?: true} -> {:ok, %{}}
+      changeset -> {:error, changeset}
+    end
+  end
 
   @spec signin(Changeset.t()) :: {:ok, binary()} | {:error, Changeset.t()}
   def signin(%Changeset{changes: changes, valid?: true} = changeset) do

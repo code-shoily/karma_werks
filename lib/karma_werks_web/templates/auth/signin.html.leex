@@ -33,6 +33,12 @@
             <span class="has-text-weight-bold">Sign Up</span>
           <% end %>
         </div>
+        <div class="control has-text-centered">
+          Don't remember your password?
+          <%= live_redirect to: Routes.live_path(@socket, KarmaWerksWeb.Auth.ResetLive) do %>
+            <span class="has-text-weight-bold">Reset it</span>
+          <% end %>
+        </div>
       </div>
     </form>
   </div>
