@@ -1,7 +1,8 @@
 Code.require_file(".iex.exs", "~")
 
-alias KarmaWerks.Dgraph
 alias KarmaWerks.Auth
 alias KarmaWerks.Cache
-alias KarmaWerksWeb.Router.Helpers, as: Routes
+alias KarmaWerks.Dgraph
+alias KarmaWerks.Dgraph.Types.Factory
 alias KarmaWerksWeb.Endpoint
+alias KarmaWerksWeb.Router.Helpers, as: Routes
