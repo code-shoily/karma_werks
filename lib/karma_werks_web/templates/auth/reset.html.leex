@@ -5,7 +5,7 @@
       Karma<span class="has-text-weight-bold">Werks</span>
     </div>
     <div class="subtitle is-4 has-text-centered">Reset Password</div>
-    <%= f = form_for @changeset, "#", [phx_submit: "save"] %>
+    <%= f = form_for @changeset, "#", [phx_submit: "save", novalidate: true] %>
       <%= bulma_form_input(f, :email, icon: "envelope") %>
       <%= bulma_form_submit("Reset Account") %>
       <div class="field">

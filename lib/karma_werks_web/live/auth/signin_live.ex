@@ -32,7 +32,7 @@ defmodule KarmaWerksWeb.Auth.SigninLive do
 
   @impl true
   def handle_event("save", %{"user" => params}, socket) do
-    case Auth.signin(User.signin_changeset(%User{}, params)) do
+    case Auth.signin(params) do
       {:ok, uid} ->
         token =
           KarmaWerksWeb.Endpoint

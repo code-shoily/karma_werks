@@ -30,6 +30,7 @@ defmodule KarmaWerks.Auth.User do
     user
     |> cast(params, @fields)
     |> validate_required(@fields)
+    |> Validators.validate_email(:email)
   end
 
   @fields ~w/token/a

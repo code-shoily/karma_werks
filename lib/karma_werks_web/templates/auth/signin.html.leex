@@ -22,7 +22,7 @@
         Invalid credentials
       </div>
     <% end %>
-    <%= f = form_for @changeset, "#", phx_submit: "save" %>
+    <%= f = form_for @changeset, "#", [phx_submit: "save", novalidate: true] %>
       <%= bulma_form_input(f, :email, icon: "envelope") %>
       <%= bulma_form_input(f, :password, icon: "lock") %>
       <%= bulma_form_submit "Sign in" %>
