@@ -1,21 +1,9 @@
 defmodule KarmaWerksWeb.Auth.SigninLive do
   @moduledoc false
 
-  use Phoenix.LiveView,
-    layout: {KarmaWerksWeb.LayoutView, "auth.html"}
+  use KarmaWerksWeb, :live_auth_view
 
-  alias KarmaWerks.Auth
-  alias KarmaWerks.Auth.User
   alias KarmaWerks.Cache, as: TokenCache
-  alias KarmaWerksWeb.AuthView
-
-  # alias KarmaWerksWeb.Router.Helpers, as: Routes
-  # alias KarmaWerksWeb.HomeLive
-
-  @impl true
-  def render(assigns) do
-    Phoenix.View.render(AuthView, "signin.html", assigns)
-  end
 
   @impl true
   def mount(_params, _session, socket) do

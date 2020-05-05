@@ -1,22 +1,11 @@
 defmodule KarmaWerksWeb.Auth.ResetLive do
   @moduledoc false
-  alias KarmaWerks.Auth
-  alias KarmaWerks.Auth.User
 
-  use Phoenix.LiveView,
-    layout: {KarmaWerksWeb.LayoutView, "auth.html"}
-
-  alias KarmaWerksWeb.AuthView
-  alias KarmaWerksWeb.Router.Helpers, as: Routes
+  use KarmaWerksWeb, :live_auth_view
 
   @impl true
   def mount(_params, _sessions, socket) do
     {:ok, assign(socket, changeset: User.password_reset_changeset(%User{}))}
-  end
-
-  @impl true
-  def render(assigns) do
-    Phoenix.View.render(AuthView, "reset.html", assigns)
   end
 
   @impl true
