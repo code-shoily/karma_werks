@@ -10,7 +10,8 @@ defmodule KarmaWerks.Application do
       # Start the Ecto repository
       KarmaWerks.Repo,
       # Start the Dgraph client
-      {Dlex, [name: KarmaWerks.DgraphProcess]},
+      {Dlex,
+       [name: KarmaWerks.DgraphProcess, port: Application.get_env(:karma_werks, :dgraph_port)]},
       # Start the Telemetry supervisor
       KarmaWerksWeb.Telemetry,
       # Start the PubSub system

@@ -8,16 +8,19 @@ Checklist and Prerequisites:
 
 To start your Phoenix server:
 
-* Run the database server with `scripts/start_dgraph.sh `
+* Install and run Dgraph from `https://dgraph.io/downloads`
 * Setup the project with `mix setup`
-* Create all your Dgraph types with `DGRAPH_PORT=9090 mix dgraph.setup`
-* Start Phoenix endpoint with `DGRAPH_PORT=9090 mix phx.server`
-
-*NOTE* If you get any port conflicts, edit the ports in `scripts/start_dgraph.sh` and use that in `DGRAPH_PORT`.
+* Start Phoenix endpoint with `mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+Running the tests:
+
+`mix test` command starts a separate Dgraph instance via `scripts/start_dgraph.sh`. It listens to port `19080`. The container can be stopped with `scripts/stop_dgraph.sh` and all data is removed when done so.
+
+Regarding Dgraph ports:
+
+If you have to change any of the ports of Dgraph due to conflict, please reflect it on `config/dev.exs` and/or `config.test.exs`. (`config :karma_werks, :dgraph_port`). In `prod.exs` it should contain environment variables according to your production setup.
 
 ## Technologies Used <3
 

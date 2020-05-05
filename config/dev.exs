@@ -30,6 +30,8 @@ config :karma_werks, KarmaWerksWeb.Endpoint,
     ]
   ]
 
+config :karma_werks, :dgraph_port, 9080
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

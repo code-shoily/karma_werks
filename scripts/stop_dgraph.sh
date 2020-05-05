@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DGRAPH_CONTAINER_NAME=dlex-dgraph
+DGRAPH_CONTAINER_NAME=dlex-dgraph-test
 
 if docker ps -a --format '{{.Names}}' | grep -Eq "^${DGRAPH_CONTAINER_NAME}\$"; then
   echo "Stopping and removing dgraph server..."

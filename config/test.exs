@@ -18,5 +18,7 @@ config :karma_werks, KarmaWerksWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :karma_werks, :dgraph_port, 19080
+
 # Print only warnings and errors during test
 config :logger, level: :warn
