@@ -1,12 +1,12 @@
 defmodule KarmaWerksWeb.Common.NavbarComponent do
   @moduledoc false
 
-  alias KarmaWerks.Auth.Operations
+  alias KarmaWerks.Auth
 
   use KarmaWerksWeb, :live_component
 
   def update(assigns, socket) do
-    user = Operations.get_user_by_uid(assigns.uid)
+    user = Auth.get_user_by_uid(assigns.uid)
 
     {:ok, assign(socket, user: user)}
   end

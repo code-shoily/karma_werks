@@ -2,7 +2,9 @@ defmodule KarmaWerksWeb.BulmaHelpers do
   @moduledoc """
   Helpers for Bulma tags
   """
-  import Phoenix.HTML.{Form, Tag}
+  alias Phoenix.HTML.Form
+
+  import Phoenix.HTML.Tag
   import KarmaWerksWeb.ErrorHelpers
 
   defp humanize_atom(atom) do

@@ -2,10 +2,13 @@ defmodule KarmaWerks.Auth do
   @moduledoc """
   Authentication context for KarmaWerks
   """
-  alias __MODULE__.{User, Operations}
+  alias __MODULE__.{Mutations, Queries, User}
   alias Ecto.Changeset
 
   require Logger
+
+  defdelegate authenticate(email, password), to: Queries
+  defdelegate get_user_by_uid(uid), to: Queries
 
   @spec signup(map()) :: {:ok, map()} | {:error, Changeset.t()}
   def signup(params) do
@@ -13,7 +16,7 @@ defmodule KarmaWerks.Auth do
 
     with %{valid?: true, changes: changes} <- changeset,
          signup_data <- Map.delete(changes, :password_confirmation),
-         {:ok, _} = data <- Operations.create_user(signup_data) do
+         {:ok, _} = data <- Mutations.create_user(signup_data) do
       data
     else
       {:error, :email_exists} ->
@@ -42,7 +45,7 @@ defmodule KarmaWerks.Auth do
 
     with %{valid?: true, changes: changes} <- changeset,
          %{email: email, password: password} <- changes,
-         {true, uid} <- Operations.authenticate(email, password) do
+         {true, uid} <- authenticate(email, password) do
       {:ok, uid}
     else
       {false, _} -> {:error, changeset |> Changeset.add_error(:base, "Invalid credentials")}
