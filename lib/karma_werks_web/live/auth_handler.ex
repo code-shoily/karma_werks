@@ -1,4 +1,6 @@
 defmodule KarmaWerksWeb.AuthHandler do
+  @moduledoc false
+
   alias KarmaWerks.Cache, as: TokenCache
   alias KarmaWerksWeb.Router.Helpers, as: Router
 

@@ -1,4 +1,8 @@
 defmodule KarmaWerks.Auth.Operations do
+  @moduledoc """
+  Modules for all Dgraph operations for authentication context
+  """
+
   alias KarmaWerks.Dgraph
 
   @type uid :: binary()
@@ -10,13 +14,13 @@ defmodule KarmaWerks.Auth.Operations do
 
   @spec create_user(user_create_input) :: {:ok, map()} | {:error, any()}
   def create_user(%{name: _, email: email, password: _} = payload) do
-    with {:email, nil} <- {:email, get_user_by_email(email)} do
-      payload
-      |> Map.merge(%{"<dgraph.type>" => "User"})
-      |> Dgraph.mutate()
-    else
-      {:email, _} -> {:error, :email_exists}
-      _ -> {:error, nil}
+    case get_user_by_email(email) do
+      nil ->
+        payload
+        |> Map.merge(%{"<dgraph.type>" => "User"})
+        |> Dgraph.mutate()
+
+      _ -> {:error, :email_exists}
     end
   end
 

@@ -1,4 +1,6 @@
 defmodule KarmaWerksWeb.Common.NavbarComponent do
+  @moduledoc false
+
   alias KarmaWerks.Auth.Operations
 
   use KarmaWerksWeb, :live_component
@@ -10,12 +12,10 @@ defmodule KarmaWerksWeb.Common.NavbarComponent do
   end
 
   def handle_event("user-update", _, socket) do
-    IO.inspect("Profile will be updated for #{uid(socket)}")
     {:noreply, socket}
   end
 
   def handle_event("user-update-password", _, socket) do
-    IO.inspect("Password will be changed for #{uid(socket)}")
     {:noreply, socket}
   end
 

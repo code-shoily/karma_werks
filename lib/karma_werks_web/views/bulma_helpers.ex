@@ -1,5 +1,8 @@
 defmodule KarmaWerksWeb.BulmaHelpers do
-  import Phoenix.HTML.Tag
+  @moduledoc """
+  Helpers for Bulma tags
+  """
+  import Phoenix.HTML.{Form, Tag}
   import KarmaWerksWeb.ErrorHelpers
 
   defp humanize_atom(atom) do
@@ -35,8 +38,8 @@ defmodule KarmaWerksWeb.BulmaHelpers do
   def bulma_form_input(form, field, opts \\ []) do
     class_attr = {:class, opts[:class] || get_form_input_class(form, field)}
     placeholder_attr = {:placeholder, opts[:placeholder] || humanize_atom(field)}
-    type = Phoenix.HTML.Form.input_type(form, field)
-    field_tag = apply(Phoenix.HTML.Form, type, [form, field, [class_attr, placeholder_attr]])
+    type = Form.input_type(form, field)
+    field_tag = apply(Form, type, [form, field, [class_attr, placeholder_attr]])
 
     icon = opts[:icon] || nil
     icon_tag = input_field_icon(icon)
@@ -55,7 +58,7 @@ defmodule KarmaWerksWeb.BulmaHelpers do
 
     content_tag :div, class: "field" do
       content_tag :div, class: "control has-text-centered" do
-        apply(Phoenix.HTML.Form, :submit, [label, [class]])
+        apply(Form, :submit, [label, [class]])
       end
     end
   end

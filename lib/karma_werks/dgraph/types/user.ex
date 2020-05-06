@@ -1,4 +1,7 @@
 defmodule KarmaWerks.Dgraph.Types.User do
+  @moduledoc """
+  Types of User graph.
+  """
   alias KarmaWerks.Dgraph
 
   @stmt """

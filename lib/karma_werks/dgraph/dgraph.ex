@@ -60,10 +60,10 @@ defmodule KarmaWerks.Dgraph do
     do: Dlex.query!(@db_process, statement, parameters, opts)
 
   @spec query_schema() :: {:ok, map} | {:error, Dlex.Error.t() | term}
-  def query_schema(), do: query("schema {}")
+  def query_schema, do: query("schema {}")
 
   @spec query_schema!() :: map | no_return
-  def query_schema!(), do: query!("schema {}")
+  def query_schema!, do: query!("schema {}")
 
   @spec transaction((DBConnection.t() -> result :: any), Keyword.t()) ::
           {:ok, result :: any} | {:error, any}

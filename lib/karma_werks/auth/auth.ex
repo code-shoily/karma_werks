@@ -1,4 +1,7 @@
 defmodule KarmaWerks.Auth do
+  @moduledoc """
+  Authentication context for KarmaWerks
+  """
   alias __MODULE__.{User, Operations}
   alias Ecto.Changeset
 

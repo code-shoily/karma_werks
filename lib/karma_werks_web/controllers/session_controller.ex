@@ -1,9 +1,9 @@
 defmodule KarmaWerksWeb.SessionController do
   alias KarmaWerks.Cache, as: TokenCache
-  alias KarmaWerksWeb.HomeLive
   alias KarmaWerksWeb.Auth.SigninLive
-  alias KarmaWerksWeb.Router.Helpers, as: Routes
   alias KarmaWerksWeb.Endpoint
+  alias KarmaWerksWeb.HomeLive
+  alias KarmaWerksWeb.Router.Helpers, as: Routes
 
   alias Phoenix.Token
 

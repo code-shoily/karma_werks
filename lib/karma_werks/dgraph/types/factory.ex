@@ -1,4 +1,7 @@
 defmodule KarmaWerks.Dgraph.Types.Factory do
+  @moduledoc """
+  Creates and migrates Dgraph types for the database.
+  """
   alias KarmaWerks.Dgraph.Types.User
 
   @type_modules [
