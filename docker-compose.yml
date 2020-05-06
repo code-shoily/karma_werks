@@ -1,0 +1,20 @@
+version: "3"
+services:
+  dgraph:
+    image: dgraph/standalone:v20.03.0
+    ports:
+      - 8080:8080
+      - 9080:9080
+      - 8000:8000
+    volumes:
+      - dgraph-data:/dgraph
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+
+volumes:
+  dgraph-data:
