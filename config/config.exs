@@ -10,10 +10,6 @@ use Mix.Config
 config :karma_werks, KarmaWerks.Cache,
   gc_interval: 86_400 # 24 hrs
 
-
-config :karma_werks,
-  ecto_repos: [KarmaWerks.Repo]
-
 # Configures the endpoint
 config :karma_werks, KarmaWerksWeb.Endpoint,
   url: [host: "localhost"],

@@ -7,8 +7,6 @@ defmodule KarmaWerks.Application do
 
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
-      KarmaWerks.Repo,
       # Start the Dgraph client
       {Dlex,
        [name: KarmaWerks.DgraphProcess, port: Application.get_env(:karma_werks, :dgraph_port)]},

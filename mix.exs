@@ -35,8 +35,6 @@ defmodule KarmaWerks.MixProject do
     [
       {:phoenix, "~> 1.5.0", override: true},
       {:phoenix_ecto, "~> 4.1"},
-      {:ecto_sql, "~> 3.4"},
-      {:postgrex, ">= 0.0.0"},
       {:phoenix_live_view, "~> 0.12.0"},
       {:floki, ">= 0.0.0", only: :test},
       {:phoenix_html, "~> 2.11"},
@@ -61,10 +59,10 @@ defmodule KarmaWerks.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup", "dgraph.setup", "cmd npm install --prefix assets"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "cmd scripts/start_dgraph.sh", "test"]
+      setup: ["deps.get", "dgraph.setup", "cmd npm install --prefix assets"],
+      "ecto.setup": ["run priv/repo/seeds.exs"],
+      "ecto.reset": ["dgraph.setup"],
+      test: ["cmd scripts/start_dgraph.sh", "test"]
     ]
   end
 end

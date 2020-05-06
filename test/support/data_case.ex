@@ -18,23 +18,10 @@ defmodule KarmaWerks.DataCase do
 
   using do
     quote do
-      alias KarmaWerks.Repo
-
       import Ecto
       import Ecto.Changeset
-      import Ecto.Query
       import KarmaWerks.DataCase
     end
-  end
-
-  setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(KarmaWerks.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(KarmaWerks.Repo, {:shared, self()})
-    end
-
-    :ok
   end
 
   @doc """
