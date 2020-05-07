@@ -10,7 +10,7 @@ defmodule KarmaWerksWeb.Auth.ResetLive do
 
   @impl true
   def handle_event("save", %{"user" => params}, socket) do
-    case Auth.reset(params) do
+    case Accounts.reset(params) do
       {:ok, _} ->
         socket =
           socket

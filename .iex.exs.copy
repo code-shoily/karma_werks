@@ -1,6 +1,6 @@
 Code.require_file(".iex.exs", "~")
 
-alias KarmaWerks.Auth
+alias KarmaWerks.Accounts
 alias KarmaWerks.Cache
 alias KarmaWerks.Dgraph
 alias KarmaWerks.Dgraph.Types.Factory

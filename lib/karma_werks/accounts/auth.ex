@@ -1,4 +1,4 @@
-defmodule KarmaWerks.Auth do
+defmodule KarmaWerks.Accounts do
   @moduledoc """
   Authentication context for KarmaWerks
   """

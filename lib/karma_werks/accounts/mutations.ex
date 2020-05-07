@@ -1,9 +1,9 @@
-defmodule KarmaWerks.Auth.Mutations do
+defmodule KarmaWerks.Accounts.Mutations do
   @moduledoc """
   Modules for all Dgraph operations for authentication context
   """
 
-  alias KarmaWerks.Auth.Queries
+  alias KarmaWerks.Accounts.Queries
   alias KarmaWerks.Dgraph
 
   @type user_create_input :: %{

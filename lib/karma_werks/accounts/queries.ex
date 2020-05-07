@@ -1,4 +1,4 @@
-defmodule KarmaWerks.Auth.Queries do
+defmodule KarmaWerks.Accounts.Queries do
   @moduledoc """
   Contains all queries relevant to auth context.
   """

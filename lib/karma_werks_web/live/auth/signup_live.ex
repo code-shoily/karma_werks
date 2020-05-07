@@ -16,7 +16,7 @@ defmodule KarmaWerksWeb.Auth.SignupLive do
 
   @impl true
   def handle_event("save", %{"user" => params}, socket) do
-    case Auth.signup(params) do
+    case Accounts.signup(params) do
       {:ok, _} ->
         socket =
           socket

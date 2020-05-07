@@ -57,8 +57,8 @@ defmodule KarmaWerksWeb do
 
       unquote(view_helpers())
 
-      alias KarmaWerks.Auth
-      alias KarmaWerks.Auth.User
+      alias KarmaWerks.Accounts
+      alias KarmaWerks.Accounts.User
     end
   end
 

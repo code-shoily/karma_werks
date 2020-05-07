@@ -1,12 +1,12 @@
 defmodule KarmaWerksWeb.Common.NavbarComponent do
   @moduledoc false
 
-  alias KarmaWerks.Auth
+  alias KarmaWerks.Accounts
 
   use KarmaWerksWeb, :live_component
 
   def update(assigns, socket) do
-    user = Auth.get_user_by_uid(assigns.uid)
+    user = Accounts.get_user_by_uid(assigns.uid)
 
     {:ok, assign(socket, user: user)}
   end
@@ -18,8 +18,6 @@ defmodule KarmaWerksWeb.Common.NavbarComponent do
   def handle_event("user-update-password", _, socket) do
     {:noreply, socket}
   end
-
-  defp uid(socket), do: socket.assigns.user["uid"]
 
   def render(assigns) do
     ~L"""
