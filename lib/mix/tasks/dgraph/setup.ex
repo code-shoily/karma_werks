@@ -13,7 +13,7 @@ defmodule Mix.Tasks.Dgraph.Setup do
 
     case Factory.create() do
       :ok -> Mix.shell().info("All types have been created")
-      error -> Mix.shell().error(to_string(error))
+      error -> raise error
     end
   end
 end
