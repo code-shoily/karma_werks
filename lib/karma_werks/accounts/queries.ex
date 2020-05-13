@@ -17,6 +17,9 @@ defmodule KarmaWerks.Accounts.Queries do
         uid
         name
         email
+        designation
+        phone
+        bio
       }
     }]
 
@@ -47,6 +50,9 @@ defmodule KarmaWerks.Accounts.Queries do
         uid
         name
         email
+        designation
+        phone
+        bio
       }
     }]
 

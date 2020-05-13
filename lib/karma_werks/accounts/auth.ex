@@ -52,4 +52,9 @@ defmodule KarmaWerks.Accounts do
       _ -> {:error, changeset}
     end
   end
+
+  @spec has_profile?(map()) :: bool()
+  def has_profile?(user) do
+    not is_nil(user["designation"])
+  end
 end
