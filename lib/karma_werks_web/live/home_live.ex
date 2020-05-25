@@ -4,6 +4,9 @@ defmodule KarmaWerksWeb.HomeLive do
   use KarmaWerksWeb.AuthHandler
 
   def mount(_params, session, socket) do
-    {:ok, authenticate_socket(self(), socket, session)}
+    socket = authenticate_socket(self(), socket, session)
+    {:ok, socket}
   end
+
+
 end

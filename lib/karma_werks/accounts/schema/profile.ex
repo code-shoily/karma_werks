@@ -1,4 +1,4 @@
-defmodule KarmaWerks.Accounts.Profile do
+defmodule KarmaWerks.Accounts.Schema.Profile do
   @moduledoc false
 
   use Ecto.Schema
@@ -12,8 +12,9 @@ defmodule KarmaWerks.Accounts.Profile do
   end
 
   @fields ~w/designation bio phone/a
-  def changeset(profile, params) do
+  def changeset(profile, params \\ %{}) do
     profile
     |> cast(params, @fields)
+    |> validate_required(@fields)
   end
 end

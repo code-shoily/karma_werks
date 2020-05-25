@@ -2,7 +2,8 @@ defmodule KarmaWerks.Accounts do
   @moduledoc """
   Authentication context for KarmaWerks
   """
-  alias __MODULE__.{Mutations, Queries, User}
+  alias __MODULE__.{Mutations, Queries}
+  alias __MODULE__.Schema.User
   alias Ecto.Changeset
 
   require Logger

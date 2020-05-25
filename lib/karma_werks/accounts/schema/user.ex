@@ -1,4 +1,4 @@
-defmodule KarmaWerks.Accounts.User do
+defmodule KarmaWerks.Accounts.Schema.User do
   @moduledoc false
 
   alias KarmaWerks.Helpers.Validators
