@@ -9,6 +9,7 @@ Checklist and Prerequisites:
 To start your Phoenix server:
 
 * Install and run Dgraph from `https://dgraph.io/downloads`
+  - or, `docker-compose up`
 * Setup the project with `mix setup`
 * Start Phoenix endpoint with `mix phx.server`
 
